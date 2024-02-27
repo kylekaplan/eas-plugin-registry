@@ -7,9 +7,8 @@ import "hardhat/console.sol";
 import { SchemaResolver } from "../SchemaResolver.sol";
 import { ISchemaResolver } from "../ISchemaResolver.sol";
 import { IEAS, Attestation } from "../../IEAS.sol";
-import { IPluginRegistry } from '../../IPluginRegistry.sol';
-import { IPluginResolver } from '../IPluginResolver.sol';
-import { AttestationResolver } from './AttestationResolver.sol';
+import { IPluginRegistry } from './IPluginRegistry.sol';
+import { IPluginResolver } from './IPluginResolver.sol';
 
 /// @title UsePluginResolver
 /// @notice A middleware resolver for calling your plugin resolver.

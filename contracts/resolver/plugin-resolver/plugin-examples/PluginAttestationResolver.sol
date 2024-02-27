@@ -2,9 +2,9 @@
 
 pragma solidity 0.8.19;
 
-import { SchemaResolver } from "../SchemaResolver.sol";
+import { SchemaResolver } from "../../SchemaResolver.sol";
 
-import { IEAS, Attestation } from "../../IEAS.sol";
+import { IEAS, Attestation } from "../../../IEAS.sol";
 import { IPluginResolver } from '../IPluginResolver.sol';
 
 /// @title AttestationResolver

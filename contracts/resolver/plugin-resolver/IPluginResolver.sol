@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import { ISchemaResolver } from "./ISchemaResolver.sol";
-import { Attestation } from "../Common.sol";
+import { ISchemaResolver } from "../ISchemaResolver.sol";
+import { Attestation } from "../../Common.sol";
 
 interface IPluginResolver is ISchemaResolver {
 
