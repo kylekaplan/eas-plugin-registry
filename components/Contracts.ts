@@ -10,6 +10,10 @@ import {
   Indexer__factory,
   PayingResolver__factory,
   PermissionedEIP712Proxy__factory,
+  PluginAttestationResolver__factory,
+  PluginAttesterResolver__factory,
+  PluginRegistry__factory,
+  UsePluginResolver__factory,
   RecipientResolver__factory,
   RevocationResolver__factory,
   SchemaRegistry__factory,
@@ -90,6 +94,9 @@ const getContracts = (signer?: Signer) => ({
   Indexer: deployOrAttach(Indexer__factory, signer),
   PayingResolver: deployOrAttach(PayingResolver__factory, signer),
   PermissionedEIP712Proxy: deployOrAttach(PermissionedEIP712Proxy__factory, signer),
+  PluginAttestationResolver: deployOrAttach(PluginAttestationResolver__factory, signer),
+  PluginAttesterResolver: deployOrAttach(PluginAttesterResolver__factory, signer),
+  PluginRegistry: deployOrAttach(PluginRegistry__factory, signer),
   RecipientResolver: deployOrAttach(RecipientResolver__factory, signer),
   RevocationResolver: deployOrAttach(RevocationResolver__factory, signer),
   SchemaRegistry: deployOrAttach(SchemaRegistry__factory, signer),
@@ -100,6 +107,7 @@ const getContracts = (signer?: Signer) => ({
   TestERC20Token: deployOrAttach(TestERC20Token__factory, signer),
   TestSchemaResolver: deployOrAttach(TestSchemaResolver__factory, signer),
   TokenResolver: deployOrAttach(TokenResolver__factory, signer),
+  UsePluginResolver: deployOrAttach(UsePluginResolver__factory, signer),
   ValueResolver: deployOrAttach(ValueResolver__factory, signer)
 });
 /* eslint-enable camelcase */
