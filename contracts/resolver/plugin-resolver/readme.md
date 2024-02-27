@@ -1,5 +1,6 @@
 ### Known caveats
 - pluginId must be the first item in the array when encoding the data.
+
 For example:
 ```
 encodedData = schemaEncoder.encodeData([
@@ -8,4 +9,4 @@ encodedData = schemaEncoder.encodeData([
 ]);
 ```
 
-- SchemaResolver `onAttest`` is an internal function, so an external function name `publicOnAttest` must be included in PluginResolvers. They may inherit `IPluginResolver`.
+- SchemaResolver `onAttest` is an internal function, so an external function name `publicOnAttest` must be included in PluginResolvers. They may inherit `IPluginResolver`.
