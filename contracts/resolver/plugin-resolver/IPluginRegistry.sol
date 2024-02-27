@@ -2,8 +2,6 @@
 
 pragma solidity 0.8.19;
 
-import { ISemver } from "../../ISemver.sol";
-
 // import { IPluginResolver } from "./resolver/IPluginResolver.sol";
 
 /// @title IPluginRegistry
