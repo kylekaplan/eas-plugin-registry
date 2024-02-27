@@ -3,7 +3,7 @@ import { encodeBytes32String, Signer } from 'ethers';
 import { ethers } from 'hardhat';
 import { SchemaEncoder } from '@ethereum-attestation-service/eas-sdk';
 import Contracts from '../../components/Contracts';
-import { UsePluginResolver, PluginAttesterResolver, SchemaRegistry, PluginRegistry, TestEAS } from '../../typechain-types';
+import { UsePluginResolver, PluginAttesterResolver, SchemaRegistry, TestEAS } from '../../typechain-types';
 import { NO_EXPIRATION, ZERO_ADDRESS, ZERO_BYTES32 } from '../../utils/Constants';
 import { getSchemaUID, getUIDFromAttestTx } from '../../utils/EAS';
 import {
@@ -26,8 +26,7 @@ describe('UsePluginResolver', () => {
 
   let registry: SchemaRegistry;
   let eas: TestEAS;
-  let pluginRegistry: PluginRegistry;
-  let resolver: UsePluginResolver; // UsePluginResolver is the contract we are testing
+  let usePluginResolver: UsePluginResolver; // UsePluginResolver is the contract we are testing
   let chosenPluginResolver: PluginAttesterResolver; // resolver that is connected to a pluginId
   let encodedData: string;
 
@@ -52,16 +51,15 @@ describe('UsePluginResolver', () => {
 
     registry = await Contracts.SchemaRegistry.deploy();
     eas = await Contracts.TestEAS.deploy(registry.getAddress());
-    pluginRegistry = await Contracts.PluginRegistry.deploy();
 
     await eas.setTime(await latest());
 
     await registerSchema(schema2, registry, ZERO_ADDRESS, true);
 
-    resolver = await Contracts.UsePluginResolver.deploy(eas.getAddress(), pluginRegistry.getAddress());
-    expect(await resolver.isPayable()).to.be.false;
+    usePluginResolver = await Contracts.UsePluginResolver.deploy(eas.getAddress());
+    expect(await usePluginResolver.isPayable()).to.be.false;
 
-    schemaId = await registerSchema(schema, registry, resolver, true);
+    schemaId = await registerSchema(schema, registry, usePluginResolver, true);
 
     chosenPluginResolver = await Contracts.PluginAttesterResolver.deploy(
       await eas.getAddress(),
@@ -69,11 +67,11 @@ describe('UsePluginResolver', () => {
     );
     const chosenPluginResolverAddress = await chosenPluginResolver.getAddress();
     console.log('chosenPluginResolver address:', chosenPluginResolverAddress);
-    const tx = await pluginRegistry.setUpPluginAndAssignResolver(chosenPluginResolverAddress);
+    const tx = await usePluginResolver.setUpPluginAndAssignResolver(chosenPluginResolverAddress);
     const receipt = await tx.wait();
     // Check if logs exist and parse the first log
     if (receipt && receipt.logs && receipt.logs[0]) {
-      const event = pluginRegistry.interface.parseLog({
+      const event = usePluginResolver.interface.parseLog({
         topics: [...receipt.logs[0].topics],
         data: receipt.logs[0].data
       });
@@ -312,7 +310,7 @@ describe('UsePluginResolver', () => {
 
   describe('byte utils', () => {
     it('should revert on invalid input', async () => {
-      await expect(resolver.toBytes32('0x1234', 1000)).to.be.revertedWithCustomError(resolver, 'OutOfBounds');
+      await expect(usePluginResolver.toBytes32('0x1234', 1000)).to.be.revertedWithCustomError(usePluginResolver, 'OutOfBounds');
     });
   });
 
